@@ -18,6 +18,7 @@ const pages = {
     eyebrow: "Chad Woods / Reel Card",
     title: "Reel",
     summary: "Watch my performance and see my range on screen.",
+    cue: "Watch me in action",
     primaryText: "Watch reel",
     primaryHref: "#reel",
     secondaryText: "Next: Casting",
@@ -91,6 +92,7 @@ const routeLinks = [...document.querySelectorAll("[data-route]")];
 const pageEyebrow = document.querySelector("#page-eyebrow");
 const pageTitle = document.querySelector("#page-title");
 const pageSummary = document.querySelector("#page-summary");
+const pageCue = document.querySelector("#page-cue");
 const primaryAction = document.querySelector("#primary-action");
 const secondaryAction = document.querySelector("#secondary-action");
 const detailNumber = document.querySelector("#detail-number");
@@ -168,6 +170,8 @@ function renderPage(pageName) {
   pageEyebrow.textContent = page.eyebrow;
   pageTitle.textContent = page.title;
   pageSummary.textContent = page.summary;
+  pageCue.textContent = page.cue || "";
+  pageCue.hidden = !page.cue;
   primaryAction.textContent = page.primaryText;
   primaryAction.href = page.primaryHref;
   secondaryAction.textContent = page.secondaryText;
