@@ -29,13 +29,35 @@ const pages = {
     number: "03",
     eyebrow: "Chad Woods / Casting Card",
     title: "Casting",
-    summary: "Booking details come to the front, with visual proof and personality still layered behind it.",
+    summary: "Theater credit, training, and special skills come to the front of the stack.",
     primaryText: "Casting details",
     primaryHref: "#casting",
     secondaryText: "Next: Personality",
     secondaryHref: "#personality",
-    copy: "Headshot, resume, contact, representation, and quick-reference stats in one focused view.",
-    details: ["Resume and credits", "Representation", "Stats and contact"],
+    copy: "A focused resume view for casting directors, agents, and production teams.",
+    details: [
+      {
+        heading: "Theater",
+        lines: ["Cruella / William Caldwell / KIPP WAYS Academy - Atlanta, GA"],
+      },
+      {
+        heading: "Training",
+        lines: [
+          "Acting Techniques / Whitney Reynolds / Barbizon USA - Online and In-Person",
+          "Acting Techniques / Robert Vito / NYLA Talent - Online",
+          "Acting Techniques / Conner Weil / NYLA Talent - Online",
+        ],
+      },
+      {
+        heading: "Special Skills",
+        lines: [
+          "Critical Thinking",
+          "Music: Hip Hop, RnB, Gospel",
+          "GPA: 3.8",
+          "State Academic Awards: A-B Honor Roll (Kinder-6th grade), Math Award (3rd and 4th grade), Reading Award (3rd and 4th grade), Athletic Award, Scholar of the Month (5th grade)",
+        ],
+      },
+    ],
   },
   personality: {
     number: "04",
@@ -73,7 +95,21 @@ function updateDetailList(items) {
 
   items.forEach((item) => {
     const listItem = document.createElement("li");
-    listItem.textContent = item;
+
+    if (typeof item === "string") {
+      listItem.textContent = item;
+    } else {
+      const heading = document.createElement("h3");
+      heading.textContent = item.heading;
+      listItem.append(heading);
+
+      item.lines.forEach((line) => {
+        const paragraph = document.createElement("p");
+        paragraph.textContent = line;
+        listItem.append(paragraph);
+      });
+    }
+
     detailList.append(listItem);
   });
 }

@@ -426,11 +426,11 @@ h1 {
 
 .casting-sheet {
   position: absolute;
-  inset: 18% 12% 18%;
+  inset: 16% 10% 17%;
   display: grid;
   align-content: start;
-  gap: clamp(0.8rem, 2vw, 1.2rem);
-  padding: clamp(1.25rem, 4vw, 2.5rem);
+  gap: clamp(0.34rem, 1vw, 0.72rem);
+  padding: clamp(0.9rem, 2.5vw, 1.65rem);
   background: #fffdf6;
   box-shadow: 0 22px 38px rgba(23, 21, 19, 0.22);
   transform: rotate(3deg);
@@ -438,32 +438,35 @@ h1 {
 
 .casting-title {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 5vw, 4.75rem);
-  line-height: 0.9;
+  font-size: clamp(1.35rem, 3.7vw, 3.35rem);
+  line-height: 0.88;
 }
 
-.casting-row {
-  display: block;
-  width: 100%;
-  height: 0.65rem;
-  background: rgba(23, 21, 19, 0.15);
-}
-
-.casting-row.short {
-  width: 62%;
-}
-
-.casting-marks {
+.resume-section {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
-  margin-top: 0.5rem;
+  gap: 0.16rem;
+  padding-top: clamp(0.18rem, 0.6vw, 0.42rem);
+  border-top: 1px solid rgba(23, 21, 19, 0.16);
 }
 
-.casting-marks span {
+.resume-heading {
+  color: #d75849;
+  font-size: clamp(0.46rem, 1.15vw, 0.72rem);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.resume-line,
+.resume-note {
   display: block;
-  height: clamp(3rem, 8vw, 5.5rem);
-  background: linear-gradient(145deg, rgba(30, 139, 138, 0.24), rgba(215, 88, 73, 0.35));
+  color: rgba(23, 21, 19, 0.74);
+  font-size: clamp(0.45rem, 1.08vw, 0.68rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.resume-note {
+  color: rgba(23, 21, 19, 0.52);
 }
 
 .personality-collage {
@@ -537,13 +540,31 @@ h1 {
 }
 
 .detail-list li {
-  display: flex;
-  align-items: center;
+  display: grid;
+  align-content: center;
+  gap: 0.38rem;
   min-height: 4.25rem;
+  padding: 0.95rem 0;
   border-top: 1px solid rgba(23, 21, 19, 0.12);
   color: rgba(23, 21, 19, 0.78);
   font-size: clamp(1rem, 2vw, 1.35rem);
   font-weight: 800;
+}
+
+.detail-list h3 {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.detail-list p {
+  margin: 0;
+  color: rgba(23, 21, 19, 0.72);
+  font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+  font-weight: 750;
+  line-height: 1.45;
 }
 
 .detail-list li:last-child {
