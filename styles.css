@@ -340,15 +340,6 @@ h1 {
   transform: rotate(4deg);
 }
 
-.masthead {
-  position: absolute;
-  top: 9%;
-  left: 9%;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.7rem, 5vw, 4.5rem);
-  text-transform: uppercase;
-}
-
 .tiny-type {
   position: absolute;
   top: 10%;
@@ -393,14 +384,6 @@ h1 {
     linear-gradient(180deg, #ea6956 0 60%, #f2b347 61% 100%);
   mix-blend-mode: multiply;
   opacity: 0.8;
-}
-
-.headline {
-  position: absolute;
-  left: 7%;
-  bottom: 1%;
-  font-size: clamp(2.2rem, 7vw, 6rem);
-  font-weight: 950;
 }
 
 .gallery-grid {
