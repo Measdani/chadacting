@@ -63,13 +63,22 @@ const pages = {
     number: "04",
     eyebrow: "Chad Woods / Personality Card",
     title: "Personality",
-    summary: "Tone, range, and point of view take the lead so the site feels like more than a resume.",
-    primaryText: "Explore range",
+    summary: "Personal stats sit up front with range and personality close behind.",
+    primaryText: "View stats",
     primaryHref: "#personality",
     secondaryText: "Back to Reel",
     secondaryHref: "#reel",
-    copy: "Voice, range, point of view, and the texture that makes the room remember him.",
-    details: ["Warm and grounded", "Dry comedic timing", "Quick, direct energy"],
+    copy: "Quick-reference personal stats for casting, booking, and production notes.",
+    details: [
+      {
+        heading: "Personal Stats",
+        lines: ["Height: 5'2 1", "Hair Color: Black", "Eye Color: Brown", "DOB: 08/13/2014"],
+      },
+      {
+        heading: "Personality",
+        lines: ["Warm and grounded", "Dry comedic timing", "Quick, direct energy"],
+      },
+    ],
   },
 };
 
