@@ -1,29 +1,29 @@
-const pageOrder = ["reel", "gallery", "casting", "personality"];
+const pageOrder = ["gallery", "reel", "casting", "personality"];
 
 const pages = {
-  reel: {
-    number: "01",
-    eyebrow: "Chad Woods / Reel Card",
-    title: "Reel",
-    summary: "Featured scenes sit on top, with gallery, casting, and personality tucked underneath.",
-    primaryText: "Watch reel",
-    primaryHref: "#reel",
-    secondaryText: "Next: Gallery",
-    secondaryHref: "#gallery",
-    copy: "Fast access to the lead performance cut, recent scenes, and downloadable clips.",
-    details: ["Featured scene cut", "Comedy and dramatic range", "Downloadable video links"],
-  },
   gallery: {
-    number: "02",
+    number: "01",
     eyebrow: "Chad Woods / Gallery Cards",
     title: "Gallery",
-    summary: "Portraits and production stills move forward while the reel stays close in the stack.",
+    summary: "Portraits and production stills lead the stack, with the reel tucked just behind.",
     primaryText: "View gallery",
     primaryHref: "#gallery",
-    secondaryText: "Next: Casting",
-    secondaryHref: "#casting",
+    secondaryText: "Next: Reel",
+    secondaryHref: "#reel",
     copy: "Editorial portraits, production stills, and social-ready image sets for quick browsing.",
     details: ["Headshots", "Editorial portraits", "Production stills"],
+  },
+  reel: {
+    number: "02",
+    eyebrow: "Chad Woods / Reel Card",
+    title: "Reel",
+    summary: "Featured scenes come forward after the gallery, with casting and personality still in the stack.",
+    primaryText: "Watch reel",
+    primaryHref: "#reel",
+    secondaryText: "Next: Casting",
+    secondaryHref: "#casting",
+    copy: "Fast access to the lead performance cut, recent scenes, and downloadable clips.",
+    details: ["Featured scene cut", "Comedy and dramatic range", "Downloadable video links"],
   },
   casting: {
     number: "03",
@@ -70,8 +70,8 @@ const pages = {
     summary: "Personal stats sit up front with range and personality close behind.",
     primaryText: "View stats",
     primaryHref: "#personality",
-    secondaryText: "Back to Reel",
-    secondaryHref: "#reel",
+    secondaryText: "Back to Gallery",
+    secondaryHref: "#gallery",
     copy: "Quick-reference personal stats for casting, booking, and production notes.",
     details: [
       {
@@ -100,7 +100,7 @@ const detailList = document.querySelector("#detail-list");
 
 function getRouteFromHash() {
   const route = window.location.hash.replace("#", "");
-  return pageOrder.includes(route) ? route : "reel";
+  return pageOrder.includes(route) ? route : "gallery";
 }
 
 function updateDetailList(items) {
