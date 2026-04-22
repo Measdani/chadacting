@@ -80,7 +80,7 @@ button {
   text-transform: uppercase;
 }
 
-.brand span {
+.brand-mark {
   display: grid;
   width: 2.4rem;
   aspect-ratio: 1;
@@ -90,6 +90,23 @@ button {
   border-radius: 50%;
   font-size: 0.75rem;
   letter-spacing: 0;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 0.15rem;
+  line-height: 1;
+}
+
+.brand-name {
+  font-size: 1rem;
+}
+
+.brand-role {
+  color: rgba(23, 21, 19, 0.56);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
 }
 
 .site-nav {
