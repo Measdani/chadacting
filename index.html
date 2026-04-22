@@ -8,27 +8,27 @@
   </head>
   <body>
     <header class="site-header" aria-label="Primary">
-      <a class="brand" href="#top" aria-label="Chad Woods home">
+      <a class="brand" href="#reel" aria-label="Chad Woods home">
         <span>CW</span>
         Chad Woods
       </a>
       <nav class="site-nav" aria-label="Sections">
-        <a href="#reel">Reel</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#casting">Casting</a>
-        <a href="#personality">Personality</a>
+        <a href="#reel" data-route="reel">Reel</a>
+        <a href="#gallery" data-route="gallery">Gallery</a>
+        <a href="#casting" data-route="casting">Casting</a>
+        <a href="#personality" data-route="personality">Personality</a>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow">Actor / On-camera talent</p>
-          <h1 id="page-title">Chad Woods</h1>
-          <p class="hero-line">Reel, gallery, casting, and personality in one sharp stack.</p>
+          <p class="eyebrow" id="page-eyebrow">Chad Woods / Reel Card</p>
+          <h1 id="page-title">Reel</h1>
+          <p class="hero-line" id="page-summary">Featured scenes sit on top, with gallery, casting, and personality tucked underneath.</p>
           <div class="hero-actions" aria-label="Featured links">
-            <a class="text-link" href="#reel">Watch reel</a>
-            <a class="text-link muted" href="#casting">Casting details</a>
+            <a class="text-link" id="primary-action" href="#reel">Watch reel</a>
+            <a class="text-link muted" id="secondary-action" href="#gallery">Next: Gallery</a>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
             </span>
           </button>
 
-          <button class="portfolio-card gallery-card" type="button" data-card="gallery" aria-label="Show gallery card">
+          <button class="portfolio-card gallery-card stack-slot-1" type="button" data-card="gallery" aria-label="Show gallery card">
             <span class="card-kicker">Gallery Cards</span>
             <span class="gallery-grid" aria-hidden="true">
               <span></span>
@@ -70,7 +70,7 @@
             </span>
           </button>
 
-          <button class="portfolio-card casting-card" type="button" data-card="casting" aria-label="Show casting card">
+          <button class="portfolio-card casting-card stack-slot-2" type="button" data-card="casting" aria-label="Show casting card">
             <span class="card-kicker">Casting Card</span>
             <span class="casting-sheet" aria-hidden="true">
               <span class="casting-title">CHAD WOODS</span>
@@ -89,7 +89,7 @@
             </span>
           </button>
 
-          <button class="portfolio-card personality-card" type="button" data-card="personality" aria-label="Show personality card">
+          <button class="portfolio-card personality-card stack-slot-3" type="button" data-card="personality" aria-label="Show personality card">
             <span class="card-kicker">Personality Card</span>
             <span class="personality-collage" aria-hidden="true">
               <span class="quote-mark">&ldquo;</span>
@@ -106,27 +106,19 @@
         </div>
       </section>
 
-      <section class="detail-band" aria-label="Portfolio links">
-        <article class="detail-card" id="reel">
-          <span>01</span>
-          <h2>Reel</h2>
-          <p>Fast access to the lead performance cut, recent scenes, and downloadable clips.</p>
-        </article>
-        <article class="detail-card" id="gallery">
-          <span>02</span>
-          <h2>Gallery</h2>
-          <p>Editorial portraits, production stills, and social-ready image sets.</p>
-        </article>
-        <article class="detail-card" id="casting">
-          <span>03</span>
-          <h2>Casting</h2>
-          <p>Headshot, resume, contact, representation, and quick-reference stats.</p>
-        </article>
-        <article class="detail-card" id="personality">
-          <span>04</span>
-          <h2>Personality</h2>
-          <p>Voice, range, point of view, and the texture that makes the room remember him.</p>
-        </article>
+      <section class="page-panel" aria-labelledby="detail-title" aria-live="polite">
+        <div class="page-panel-inner">
+          <div class="page-panel-copy">
+            <span class="page-number" id="detail-number">01</span>
+            <h2 id="detail-title">Reel</h2>
+            <p id="detail-copy">Fast access to the lead performance cut, recent scenes, and downloadable clips.</p>
+          </div>
+          <ul class="detail-list" id="detail-list">
+            <li>Featured scene cut</li>
+            <li>Comedy and dramatic range</li>
+            <li>Downloadable video links</li>
+          </ul>
+        </div>
       </section>
     </main>
 
