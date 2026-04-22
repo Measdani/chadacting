@@ -99,6 +99,8 @@ const detailNumber = document.querySelector("#detail-number");
 const detailTitle = document.querySelector("#detail-title");
 const detailCopy = document.querySelector("#detail-copy");
 const detailList = document.querySelector("#detail-list");
+const revealSections = [...document.querySelectorAll("[data-reveal]")];
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function getRouteFromHash() {
   const route = window.location.hash.replace("#", "");
@@ -204,4 +206,62 @@ cards.forEach((card) => {
 
 window.addEventListener("hashchange", () => renderPage(getRouteFromHash()));
 
+function updateStoryScroll() {
+  if (reducedMotionQuery.matches) {
+    document.documentElement.style.setProperty("--story-scroll", "0");
+    return;
+  }
+
+  const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+  const progress = Math.min(Math.max(window.scrollY / scrollable, 0), 1);
+  document.documentElement.style.setProperty("--story-scroll", progress.toFixed(3));
+}
+
+let scrollFrame = 0;
+
+function requestStoryScrollUpdate() {
+  if (scrollFrame) {
+    return;
+  }
+
+  scrollFrame = window.requestAnimationFrame(() => {
+    scrollFrame = 0;
+    updateStoryScroll();
+  });
+}
+
+function setupRevealSections() {
+  if (!("IntersectionObserver" in window)) {
+    revealSections.forEach((section) => section.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    },
+    {
+      rootMargin: "0px 0px -14% 0px",
+      threshold: 0.18,
+    },
+  );
+
+  revealSections.forEach((section) => observer.observe(section));
+}
+
 renderPage(getRouteFromHash());
+setupRevealSections();
+updateStoryScroll();
+
+window.addEventListener("scroll", requestStoryScrollUpdate, { passive: true });
+window.addEventListener("resize", requestStoryScrollUpdate);
+
+if (typeof reducedMotionQuery.addEventListener === "function") {
+  reducedMotionQuery.addEventListener("change", updateStoryScroll);
+} else {
+  reducedMotionQuery.addListener(updateStoryScroll);
+}

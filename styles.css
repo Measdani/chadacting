@@ -9,6 +9,7 @@
   --blue: #384a76;
   --plum: #6b3b61;
   --accent: var(--teal);
+  --story-scroll: 0;
   --shadow: 0 28px 80px rgba(23, 21, 19, 0.22);
   color-scheme: light;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -23,12 +24,60 @@ html {
 }
 
 body {
+  position: relative;
+  overflow-x: hidden;
   margin: 0;
   min-width: 320px;
   color: var(--ink);
   background:
     radial-gradient(circle at 16% 20%, rgba(246, 200, 78, 0.28), transparent 34%),
     linear-gradient(135deg, #fbfaf4 0%, #f0eadc 46%, #dfe9e3 100%);
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::before {
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(23, 21, 19, 0.2) 0 0.6px, transparent 0.8px),
+    radial-gradient(circle at 72% 44%, rgba(255, 255, 255, 0.65) 0 0.5px, transparent 0.7px);
+  background-size: 9px 9px, 13px 13px;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  opacity: 0.34;
+  background:
+    radial-gradient(circle at var(--glow-x, 32%) 28%, rgba(255, 118, 80, 0.18), transparent 28%),
+    radial-gradient(circle at 78% var(--glow-y, 62%), rgba(30, 139, 138, 0.2), transparent 30%);
+  background-size: 120% 120%;
+  animation: background-drift 18s ease-in-out infinite alternate;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes background-drift {
+  0% {
+    --glow-x: 24%;
+    --glow-y: 68%;
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+  }
+
+  100% {
+    --glow-x: 42%;
+    --glow-y: 48%;
+    transform: translate3d(1.5%, 1%, 0) scale(1.04);
+  }
 }
 
 body[data-page="reel"] {
@@ -163,6 +212,24 @@ body[data-page="reel"] .brand-role {
   gap: clamp(2rem, 7vw, 6rem);
 }
 
+.reveal-item {
+  --reveal-y: 1.25rem;
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y), 0);
+  transition:
+    opacity 760ms ease,
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-section.is-visible .reveal-item {
+  --reveal-y: 0rem;
+  opacity: 1;
+}
+
+.reveal-section.is-visible .reveal-item:nth-child(2) {
+  transition-delay: 120ms;
+}
+
 .hero-copy {
   max-width: 42rem;
 }
@@ -253,6 +320,24 @@ body[data-page="reel"] .text-link.muted {
   aspect-ratio: 1.2 / 1;
   justify-self: center;
   perspective: 1400px;
+  transform: translate3d(0, calc(var(--reveal-y, 0rem) + (var(--story-scroll) * -0.9rem)), 0) rotateX(calc(var(--story-scroll) * 1.2deg));
+  transform-style: preserve-3d;
+  transition: transform 180ms linear;
+}
+
+.card-stage::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -11%;
+  z-index: 0;
+  height: 24%;
+  background: radial-gradient(ellipse at center, rgba(23, 21, 19, 0.28), rgba(23, 21, 19, 0) 68%);
+  filter: blur(16px);
+  opacity: 0.78;
+  transform: translate3d(0, calc(var(--story-scroll) * 0.8rem), -6rem) scale(calc(1 + var(--story-scroll) * 0.08));
+  transition: opacity 320ms ease;
 }
 
 .portfolio-card {
@@ -458,11 +543,26 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body::after,
   .portfolio-card,
   .paper-stack,
-  .casting-sheet {
+  .casting-sheet,
+  .reveal-item,
+  .card-stage,
+  .card-stage::before {
     animation: none !important;
     transition-duration: 1ms !important;
+  }
+
+  body::after,
+  .reveal-item,
+  .card-stage,
+  .card-stage::before {
+    transform: none !important;
+  }
+
+  .reveal-item {
+    opacity: 1;
   }
 }
 
