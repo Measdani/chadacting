@@ -842,6 +842,27 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
   line-height: 1.6;
 }
 
+.reel-player {
+  grid-column: 1 / -1;
+  width: min(100%, 62rem);
+  margin: 0 auto;
+  overflow: hidden;
+  background: rgba(17, 18, 20, 0.86);
+  border: 1px solid rgba(255, 248, 236, 0.18);
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 1px rgba(255, 248, 236, 0.06),
+    0 34px 90px rgba(0, 0, 0, 0.34);
+  transform: translate3d(0, -0.4rem, 0);
+}
+
+.reel-player video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .detail-list {
   display: grid;
   align-content: start;
@@ -896,6 +917,10 @@ body[data-page="reel"] .detail-list li:last-child {
 body[data-page="reel"] .page-panel p,
 body[data-page="reel"] .detail-list li {
   color: rgba(255, 248, 236, 0.72);
+}
+
+body[data-page="reel"] .detail-list {
+  grid-column: 1 / -1;
 }
 
 @media (hover: hover) {

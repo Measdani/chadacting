@@ -99,6 +99,8 @@ const detailNumber = document.querySelector("#detail-number");
 const detailTitle = document.querySelector("#detail-title");
 const detailCopy = document.querySelector("#detail-copy");
 const detailList = document.querySelector("#detail-list");
+const reelPlayer = document.querySelector("#reel-player");
+const reelVideo = document.querySelector("#reel-video");
 const revealSections = [...document.querySelectorAll("[data-reveal]")];
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -181,6 +183,11 @@ function renderPage(pageName) {
   detailNumber.textContent = page.number;
   detailTitle.textContent = page.title;
   detailCopy.textContent = page.copy;
+  reelPlayer.hidden = pageName !== "reel";
+
+  if (pageName !== "reel" && !reelVideo.paused) {
+    reelVideo.pause();
+  }
 
   updateDetailList(page.details);
   updateCardStack(pageName);
