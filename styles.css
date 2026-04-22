@@ -471,32 +471,37 @@ h1 {
 
 .personality-collage {
   position: absolute;
-  inset: 16% 10% 18%;
+  inset: 12% 8% 30%;
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
+  align-content: flex-start;
   gap: clamp(0.7rem, 1.8vw, 1.1rem);
   transform: rotate(-4deg);
 }
 
 .quote-mark {
-  flex: 0 0 100%;
+  position: absolute;
+  top: -0.12em;
+  left: 0;
+  z-index: 0;
   color: rgba(255, 255, 255, 0.48);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(6rem, 18vw, 12rem);
+  font-size: clamp(4rem, 12vw, 8rem);
   line-height: 0.55;
 }
 
 .tone-chip {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
-  min-height: clamp(3rem, 8vw, 5.5rem);
-  padding: 0 clamp(1rem, 3vw, 2rem);
+  min-height: clamp(2.4rem, 5.5vw, 4.25rem);
+  padding: 0 clamp(0.9rem, 2.4vw, 1.65rem);
   color: #fff;
   background: rgba(255, 255, 255, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 999px;
-  font-size: clamp(1.1rem, 3vw, 2.5rem);
+  font-size: clamp(0.95rem, 2.3vw, 1.95rem);
   font-weight: 850;
 }
 
@@ -655,6 +660,10 @@ h1 {
   .casting-sheet,
   .personality-collage {
     inset: 20% 9% 20%;
+  }
+
+  .personality-collage {
+    inset: 13% 8% 31%;
   }
 
   .page-panel {
