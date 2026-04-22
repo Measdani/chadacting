@@ -224,6 +224,7 @@ body[data-page="personality"] h1 {
   cursor: pointer;
   text-align: left;
   transform-origin: center;
+  will-change: transform, filter;
   transition:
     transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
     filter 320ms ease,
@@ -270,6 +271,124 @@ body[data-page="personality"] h1 {
   z-index: 8;
   transform: translate3d(0, 0, 5rem) rotate(-1deg);
   filter: saturate(1.04);
+}
+
+body[data-page="gallery"] .portfolio-card {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body[data-page="gallery"] .portfolio-card.is-active {
+  transform: translate3d(0, 0, 5.25rem) rotate(-2deg) scale(1.01);
+}
+
+body[data-page="gallery"] .portfolio-card.stack-slot-1 {
+  transform: translate3d(-3.2rem, 1.05rem, -1.25rem) rotate(-12deg);
+}
+
+body[data-page="gallery"] .portfolio-card.stack-slot-2 {
+  transform: translate3d(2.7rem, 1.8rem, -2.2rem) rotate(9deg);
+}
+
+body[data-page="gallery"] .portfolio-card.stack-slot-3 {
+  transform: translate3d(-0.5rem, 3.6rem, -3.4rem) rotate(3deg);
+}
+
+body[data-page="reel"] .portfolio-card {
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body[data-page="reel"] .portfolio-card.is-active {
+  border-radius: 6px;
+  box-shadow: 0 28px 88px rgba(23, 21, 19, 0.28);
+  transform: translate3d(0, 0, 5.5rem) rotate(0deg) scale(1.035);
+}
+
+body[data-page="reel"] .portfolio-card.stack-slot-1 {
+  transform: translate3d(0, 0.9rem, -1.6rem) rotate(0deg) scale(0.96);
+}
+
+body[data-page="reel"] .portfolio-card.stack-slot-2 {
+  transform: translate3d(0, 1.8rem, -2.7rem) rotate(0deg) scale(0.92);
+}
+
+body[data-page="reel"] .portfolio-card.stack-slot-3 {
+  transform: translate3d(0, 2.7rem, -3.8rem) rotate(0deg) scale(0.88);
+}
+
+body[data-page="reel"] .reel-card.is-active .paper-stack {
+  transform: rotate(0deg) scale(1.04);
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body[data-page="casting"] .portfolio-card {
+  transition-duration: 520ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body[data-page="casting"] .portfolio-card.is-active {
+  border-radius: 4px;
+  box-shadow: 0 18px 54px rgba(23, 21, 19, 0.18);
+  transform: translate3d(0, 0, 5.25rem) rotate(0deg) scale(1);
+}
+
+body[data-page="casting"] .portfolio-card.stack-slot-1 {
+  transform: translate3d(-0.55rem, 0.85rem, -1.3rem) rotate(-1deg) scale(0.985);
+}
+
+body[data-page="casting"] .portfolio-card.stack-slot-2 {
+  transform: translate3d(0.55rem, 1.7rem, -2.4rem) rotate(1deg) scale(0.965);
+}
+
+body[data-page="casting"] .portfolio-card.stack-slot-3 {
+  transform: translate3d(0, 2.55rem, -3.5rem) rotate(0deg) scale(0.945);
+}
+
+body[data-page="casting"] .casting-card.is-active .casting-sheet {
+  transform: rotate(0deg);
+  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body[data-page="personality"] .portfolio-card {
+  transition-duration: 880ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body[data-page="personality"] .portfolio-card.is-active {
+  animation: soft-card-float 5.8s ease-in-out infinite;
+  transform: translate3d(0, 0, 5rem) rotate(-1.5deg);
+}
+
+body[data-page="personality"] .portfolio-card.stack-slot-1 {
+  transform: translate3d(-1.25rem, 1.15rem, -1.8rem) rotate(-4deg);
+}
+
+body[data-page="personality"] .portfolio-card.stack-slot-2 {
+  transform: translate3d(1.45rem, 2.1rem, -2.9rem) rotate(3deg);
+}
+
+body[data-page="personality"] .portfolio-card.stack-slot-3 {
+  transform: translate3d(-0.2rem, 3.1rem, -4rem) rotate(1deg);
+}
+
+@keyframes soft-card-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 5rem) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translate3d(0, -0.65rem, 5rem) rotate(0.5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-card,
+  .paper-stack,
+  .casting-sheet {
+    animation: none !important;
+    transition-duration: 1ms !important;
+  }
 }
 
 .card-kicker {
@@ -670,6 +789,54 @@ body[data-page="personality"] h1 {
 
   .portfolio-card.is-active {
     transform: translate3d(0, 0, 5rem) rotate(-1deg);
+  }
+
+  body[data-page="gallery"] .portfolio-card.stack-slot-1 {
+    transform: translate3d(-1.15rem, 0.9rem, -1.25rem) rotate(-9deg);
+  }
+
+  body[data-page="gallery"] .portfolio-card.stack-slot-2 {
+    transform: translate3d(1.1rem, 1.45rem, -2.2rem) rotate(7deg);
+  }
+
+  body[data-page="gallery"] .portfolio-card.stack-slot-3 {
+    transform: translate3d(-0.15rem, 2.35rem, -3.4rem) rotate(2deg);
+  }
+
+  body[data-page="reel"] .portfolio-card.stack-slot-1 {
+    transform: translate3d(0, 0.75rem, -1.6rem) rotate(0deg) scale(0.96);
+  }
+
+  body[data-page="reel"] .portfolio-card.stack-slot-2 {
+    transform: translate3d(0, 1.5rem, -2.7rem) rotate(0deg) scale(0.92);
+  }
+
+  body[data-page="reel"] .portfolio-card.stack-slot-3 {
+    transform: translate3d(0, 2.25rem, -3.8rem) rotate(0deg) scale(0.88);
+  }
+
+  body[data-page="casting"] .portfolio-card.stack-slot-1 {
+    transform: translate3d(-0.3rem, 0.75rem, -1.3rem) rotate(-1deg) scale(0.985);
+  }
+
+  body[data-page="casting"] .portfolio-card.stack-slot-2 {
+    transform: translate3d(0.3rem, 1.5rem, -2.4rem) rotate(1deg) scale(0.965);
+  }
+
+  body[data-page="casting"] .portfolio-card.stack-slot-3 {
+    transform: translate3d(0, 2.25rem, -3.5rem) rotate(0deg) scale(0.945);
+  }
+
+  body[data-page="personality"] .portfolio-card.stack-slot-1 {
+    transform: translate3d(-0.7rem, 0.9rem, -1.8rem) rotate(-3deg);
+  }
+
+  body[data-page="personality"] .portfolio-card.stack-slot-2 {
+    transform: translate3d(0.8rem, 1.65rem, -2.9rem) rotate(3deg);
+  }
+
+  body[data-page="personality"] .portfolio-card.stack-slot-3 {
+    transform: translate3d(-0.1rem, 2.45rem, -4rem) rotate(1deg);
   }
 
   .paper-stack,
