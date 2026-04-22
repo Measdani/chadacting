@@ -99,10 +99,14 @@ const detailNumber = document.querySelector("#detail-number");
 const detailTitle = document.querySelector("#detail-title");
 const detailCopy = document.querySelector("#detail-copy");
 const detailList = document.querySelector("#detail-list");
-const reelPlayer = document.querySelector("#reel-player");
 const reelVideo = document.querySelector("#reel-video");
+const videoModal = document.querySelector("#video-modal");
+const videoClose = document.querySelector("#video-close");
+const videoTriggers = [...document.querySelectorAll("[data-video-src]")];
+const videoClosers = [...document.querySelectorAll("[data-close-video]")];
 const revealSections = [...document.querySelectorAll("[data-reveal]")];
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+let lastVideoTrigger = null;
 
 function getRouteFromHash() {
   const route = window.location.hash.replace("#", "");
@@ -183,10 +187,9 @@ function renderPage(pageName) {
   detailNumber.textContent = page.number;
   detailTitle.textContent = page.title;
   detailCopy.textContent = page.copy;
-  reelPlayer.hidden = pageName !== "reel";
 
-  if (pageName !== "reel" && !reelVideo.paused) {
-    reelVideo.pause();
+  if (pageName !== "reel") {
+    closeVideoModal();
   }
 
   updateDetailList(page.details);
@@ -209,9 +212,72 @@ function goToPage(pageName) {
 
 cards.forEach((card) => {
   card.addEventListener("click", () => goToPage(card.dataset.card));
+
+  if (card.tagName !== "BUTTON") {
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        goToPage(card.dataset.card);
+      }
+    });
+  }
 });
 
 window.addEventListener("hashchange", () => renderPage(getRouteFromHash()));
+
+function openVideoModal(source, trigger) {
+  lastVideoTrigger = trigger;
+
+  if (reelVideo.getAttribute("src") !== source) {
+    reelVideo.setAttribute("src", source);
+  }
+
+  videoModal.hidden = false;
+  videoModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("is-video-open");
+  reelVideo.currentTime = 0;
+  videoClose.focus();
+
+  const playAttempt = reelVideo.play();
+
+  if (playAttempt && typeof playAttempt.catch === "function") {
+    playAttempt.catch(() => {});
+  }
+}
+
+function closeVideoModal() {
+  if (videoModal.hidden) {
+    return;
+  }
+
+  reelVideo.pause();
+  videoModal.hidden = true;
+  videoModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("is-video-open");
+
+  if (lastVideoTrigger) {
+    lastVideoTrigger.focus();
+  }
+}
+
+videoTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openVideoModal(trigger.dataset.videoSrc, trigger);
+  });
+});
+
+videoClosers.forEach((closer) => {
+  closer.addEventListener("click", closeVideoModal);
+});
+
+videoClose.addEventListener("click", closeVideoModal);
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeVideoModal();
+  }
+});
 
 function updateStoryScroll() {
   if (reducedMotionQuery.matches) {
