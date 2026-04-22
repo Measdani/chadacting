@@ -57,6 +57,10 @@ const pages = {
           "State Academic Awards: A-B Honor Roll (Kinder-6th grade), Math Award (3rd and 4th grade), Reading Award (3rd and 4th grade), Athletic Award, Scholar of the Month (5th grade)",
         ],
       },
+      {
+        heading: "Contact Info",
+        lines: ["Email: byrddeshauna94@gmail.com", "Phone: 470-257-8335"],
+      },
     ],
   },
   personality: {
