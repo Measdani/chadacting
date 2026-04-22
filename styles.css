@@ -161,6 +161,11 @@ h1 {
   line-height: 0.84;
 }
 
+body[data-page="personality"] h1 {
+  max-width: 100%;
+  font-size: clamp(3.6rem, 7.1vw, 6.8rem);
+}
+
 .hero-line {
   max-width: 32rem;
   margin: 1.25rem 0 0;
@@ -633,6 +638,10 @@ h1 {
 
   h1 {
     font-size: clamp(3.9rem, 17vw, 5rem);
+  }
+
+  body[data-page="personality"] h1 {
+    font-size: clamp(3rem, 13vw, 4.35rem);
   }
 
   .hero-actions {
