@@ -471,11 +471,11 @@ h1 {
 
 .personality-collage {
   position: absolute;
-  inset: 12% 8% 30%;
+  inset: 10% 7% 32%;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  gap: clamp(0.7rem, 1.8vw, 1.1rem);
+  gap: clamp(0.48rem, 1.2vw, 0.85rem);
   transform: rotate(-4deg);
 }
 
@@ -495,13 +495,13 @@ h1 {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  min-height: clamp(2.4rem, 5.5vw, 4.25rem);
-  padding: 0 clamp(0.9rem, 2.4vw, 1.65rem);
+  min-height: clamp(2.1rem, 4.8vw, 3.65rem);
+  padding: 0 clamp(0.8rem, 1.9vw, 1.35rem);
   color: #fff;
   background: rgba(255, 255, 255, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 999px;
-  font-size: clamp(0.95rem, 2.3vw, 1.95rem);
+  font-size: clamp(0.88rem, 1.9vw, 1.6rem);
   font-weight: 850;
 }
 
@@ -663,7 +663,7 @@ h1 {
   }
 
   .personality-collage {
-    inset: 13% 8% 31%;
+    inset: 12% 7% 33%;
   }
 
   .page-panel {

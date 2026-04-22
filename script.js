@@ -72,7 +72,7 @@ const pages = {
     details: [
       {
         heading: "Personal Stats",
-        lines: ["Height: 5'2 1", "Hair Color: Black", "Eye Color: Brown", "DOB: 08/13/2014"],
+        lines: ["Height: 5'2", "Weight: 118 lbs.", "Hair Color: Black", "Eye Color: Brown", "DOB: 08/13/2014"],
       },
       {
         heading: "Personality",
