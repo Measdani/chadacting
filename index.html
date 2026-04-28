@@ -15,12 +15,19 @@
           <span class="brand-role">Child Actor</span>
         </span>
       </a>
-      <nav class="site-nav" aria-label="Sections">
-        <a href="#gallery" data-route="gallery">Gallery</a>
-        <a href="#reel" data-route="reel">Reel</a>
-        <a href="#casting" data-route="casting">Casting</a>
-        <a href="#personality" data-route="personality">Personality</a>
-      </nav>
+
+      <div class="site-header-actions">
+        <nav class="site-nav" aria-label="Sections">
+          <a href="#gallery" data-route="gallery">Gallery</a>
+          <a href="#reel" data-route="reel">Reel</a>
+          <a href="#casting" data-route="casting">Casting</a>
+          <a href="#personality" data-route="personality">Personality</a>
+        </nav>
+
+        <button class="admin-trigger" id="admin-trigger" type="button" aria-controls="admin-shell" aria-expanded="false">
+          Admin Panel
+        </button>
+      </div>
     </header>
 
     <main id="top">
@@ -47,29 +54,37 @@
                 <span class="photo-strip">
                   <span class="portrait portrait-main"></span>
                   <span class="portrait portrait-side"></span>
-                  <button class="card-play-button" type="button" data-video-src="assets/videos/chad-reel.mp4" aria-label="Play reel video">Play</button>
+                  <button
+                    class="card-play-button"
+                    type="button"
+                    data-featured-reel-trigger
+                    data-video-src="assets/videos/April 26, 2026 (1).mp4"
+                    aria-label="Play featured reel video"
+                  >
+                    Play
+                  </button>
                 </span>
               </span>
             </span>
             <span class="card-footer">
               <span>Featured scenes</span>
-              <span class="count-badge" aria-hidden="true">06</span>
+              <span class="count-badge" id="reel-count-badge" aria-hidden="true">01</span>
             </span>
           </article>
 
           <button class="portfolio-card gallery-card is-active" type="button" data-card="gallery" aria-label="Show gallery card">
             <span class="card-kicker">Gallery Cards</span>
             <span class="gallery-grid" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+              <span data-gallery-preview></span>
+              <span data-gallery-preview></span>
+              <span data-gallery-preview></span>
+              <span data-gallery-preview></span>
+              <span data-gallery-preview></span>
+              <span data-gallery-preview></span>
             </span>
             <span class="card-footer">
               <span>Portraits & stills</span>
-              <span class="count-badge">18</span>
+              <span class="count-badge" id="gallery-count-badge">00</span>
             </span>
           </button>
 
@@ -114,7 +129,6 @@
               <span class="count-badge">05</span>
             </span>
           </button>
-
         </div>
       </section>
 
@@ -132,13 +146,111 @@
           </ul>
         </div>
       </section>
+
     </main>
+
+    <div class="admin-shell" id="admin-shell" aria-hidden="true" hidden>
+      <button class="admin-shell-backdrop" type="button" data-close-admin aria-label="Close admin panel"></button>
+
+      <aside class="admin-panel" aria-labelledby="admin-title">
+        <div class="admin-panel-header">
+          <div>
+            <p class="eyebrow">Local Admin</p>
+            <h2 id="admin-title">Manage reels and pictures</h2>
+          </div>
+
+          <button class="admin-close" id="admin-close" type="button" data-close-admin aria-label="Close admin panel">x</button>
+        </div>
+
+        <div class="admin-auth" id="admin-auth"></div>
+
+        <div class="admin-dashboard" id="admin-dashboard" hidden>
+          <div class="admin-toolbar">
+            <button class="secondary-button" id="admin-lock" type="button">Lock panel</button>
+          </div>
+
+          <div class="admin-forms">
+            <form class="admin-form" id="image-form">
+              <span class="surface-kicker">Pictures</span>
+              <h3>Add a picture</h3>
+              <p class="admin-form-copy">Upload headshots, portraits, or production stills. They stay here as drafts until you publish them.</p>
+
+              <label class="field-group">
+                <span>Picture title</span>
+                <input name="title" type="text" maxlength="80" placeholder="Spring headshot" required />
+              </label>
+
+              <label class="field-group">
+                <span>Caption</span>
+                <textarea name="caption" rows="3" maxlength="220" placeholder="Short note for casting directors or visitors"></textarea>
+              </label>
+
+              <label class="field-group">
+                <span>Picture file</span>
+                <input name="file" type="file" accept="image/*" required />
+              </label>
+
+              <button class="primary-button" type="submit">Add picture</button>
+              <p class="form-status" id="image-form-status" hidden></p>
+            </form>
+
+            <form class="admin-form" id="reel-form">
+              <span class="surface-kicker">Reels</span>
+              <h3>Add a reel</h3>
+              <p class="admin-form-copy">Upload a new reel as a draft, then publish it from the saved reels list when you want it live.</p>
+
+              <label class="field-group">
+                <span>Reel title</span>
+                <input name="title" type="text" maxlength="80" placeholder="Comedy scene reel" required />
+              </label>
+
+              <label class="field-group">
+                <span>Caption</span>
+                <textarea name="caption" rows="3" maxlength="220" placeholder="Short context about this performance reel"></textarea>
+              </label>
+
+              <label class="field-group">
+                <span>Reel file</span>
+                <input name="file" type="file" accept="video/*" required />
+              </label>
+
+              <button class="primary-button" type="submit">Add reel</button>
+              <p class="form-status" id="reel-form-status" hidden></p>
+            </form>
+          </div>
+
+          <div class="admin-library">
+            <section class="admin-library-section" aria-labelledby="admin-pictures-heading">
+              <div class="admin-library-heading">
+                <div>
+                  <span class="surface-kicker">Pictures</span>
+                  <h3 id="admin-pictures-heading">Saved pictures</h3>
+                </div>
+                <span class="surface-count" id="admin-picture-count">0 Pictures</span>
+              </div>
+              <div class="admin-library-list" id="admin-image-list"></div>
+            </section>
+
+            <section class="admin-library-section" aria-labelledby="admin-reels-heading">
+              <div class="admin-library-heading">
+                <div>
+                  <span class="surface-kicker">Reels</span>
+                  <h3 id="admin-reels-heading">Saved reels</h3>
+                </div>
+                <span class="surface-count" id="admin-reel-count">0 Reels</span>
+              </div>
+              <div class="admin-library-list" id="admin-reel-list"></div>
+            </section>
+          </div>
+        </div>
+      </aside>
+    </div>
 
     <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Reel video player" aria-hidden="true" hidden>
       <button class="video-modal-backdrop" type="button" data-close-video aria-label="Close video"></button>
       <div class="video-modal-panel">
         <button class="video-close" id="video-close" type="button" aria-label="Close video">x</button>
-        <video id="reel-video" controls playsinline preload="metadata" src="assets/videos/chad-reel.mp4">
+        <video id="reel-video" controls playsinline preload="metadata" src="assets/videos/April 26, 2026 (1).mp4">
           Your browser does not support the video tag.
         </video>
       </div>
