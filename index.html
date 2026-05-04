@@ -74,9 +74,7 @@
 
           <button class="portfolio-card gallery-card is-active" type="button" data-card="gallery" aria-label="Show gallery card">
             <span class="card-kicker">Gallery Cards</span>
-            <span class="gallery-grid" aria-hidden="true">
-              <span data-gallery-preview></span>
-              <span data-gallery-preview></span>
+            <span class="gallery-grid" aria-label="Gallery photo previews">
               <span data-gallery-preview></span>
               <span data-gallery-preview></span>
               <span data-gallery-preview></span>
@@ -144,6 +142,56 @@
             <li>Editorial portraits</li>
             <li>Production stills</li>
           </ul>
+        </div>
+      </section>
+
+      <section class="media-showcase reveal-section" aria-labelledby="media-showcase-title" data-reveal>
+        <div class="media-showcase-header reveal-item">
+          <div>
+            <p class="eyebrow">Portfolio media</p>
+            <h2 id="media-showcase-title">Gallery</h2>
+            <p class="media-showcase-copy">Published pictures and reel clips for casting, booking, and portfolio browsing.</p>
+          </div>
+          <p class="media-status" id="media-status" aria-live="polite">Loading media...</p>
+        </div>
+
+        <div class="media-layout reveal-item">
+          <section class="media-surface" aria-labelledby="gallery-feed-title">
+            <div class="surface-heading-row">
+              <div>
+                <span class="surface-kicker">Pictures</span>
+                <h3 id="gallery-feed-title">Published pictures</h3>
+              </div>
+              <span class="surface-count" id="picture-count-pill">0 Pictures</span>
+            </div>
+            <div class="gallery-feed" id="gallery-feed"></div>
+          </section>
+
+          <section class="media-surface" aria-labelledby="reel-feed-title">
+            <div class="surface-heading-row">
+              <div>
+                <span class="surface-kicker">Reels</span>
+                <h3 id="reel-feed-title">Featured reel</h3>
+              </div>
+              <span class="surface-count" id="reel-count-pill">1 Reel</span>
+            </div>
+            <div class="featured-reel">
+              <div class="featured-reel-player-shell">
+                <video id="featured-reel-player" controls playsinline preload="metadata" src="assets/videos/April 26, 2026 (1).mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="featured-reel-copy">
+                <p class="featured-reel-label" id="featured-reel-label">Default featured reel</p>
+                <h4 id="featured-reel-title">Featured Reel</h4>
+                <p id="featured-reel-caption">The main performance reel is ready to play.</p>
+                <button class="secondary-button" id="featured-reel-modal-trigger" type="button" data-video-src="assets/videos/April 26, 2026 (1).mp4">
+                  Open reel
+                </button>
+              </div>
+            </div>
+            <div class="reel-feed" id="reel-feed"></div>
+          </section>
         </div>
       </section>
 
@@ -253,6 +301,14 @@
         <video id="reel-video" controls playsinline preload="metadata" src="assets/videos/April 26, 2026 (1).mp4">
           Your browser does not support the video tag.
         </video>
+      </div>
+    </div>
+
+    <div class="photo-modal" id="photo-modal" role="dialog" aria-modal="true" aria-label="Gallery photo viewer" aria-hidden="true" hidden>
+      <button class="photo-modal-backdrop" type="button" data-close-photo aria-label="Close photo"></button>
+      <div class="photo-modal-panel">
+        <button class="photo-close" id="photo-close" type="button" aria-label="Close photo">x</button>
+        <img id="photo-modal-image" src="" alt="" />
       </div>
     </div>
 

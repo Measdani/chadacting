@@ -106,6 +106,57 @@ const DEFAULT_REEL = {
   name: "April 26, 2026 (1).mp4",
 };
 
+const DEFAULT_IMAGES = [
+  {
+    id: "default-image-img-0175",
+    type: "image",
+    title: "Gallery Portrait",
+    caption: "A polished portfolio portrait for casting and quick browsing.",
+    createdAt: "2026-05-04T16:22:00.000Z",
+    published: true,
+    src: "assets/Pictures/IMG_0175.jpeg",
+    name: "IMG_0175.jpeg",
+    size: 2107895,
+    isDefault: true,
+  },
+  {
+    id: "default-image-img-0171",
+    type: "image",
+    title: "Character Portrait",
+    caption: "A warm expression-focused image for the live gallery.",
+    createdAt: "2026-05-04T16:21:00.000Z",
+    published: true,
+    src: "assets/Pictures/IMG_0171.jpeg",
+    name: "IMG_0171.jpeg",
+    size: 1094564,
+    isDefault: true,
+  },
+  {
+    id: "default-image-img-0170",
+    type: "image",
+    title: "Portfolio Still",
+    caption: "A clean still for browsing Chad's visual range.",
+    createdAt: "2026-05-04T16:20:00.000Z",
+    published: true,
+    src: "assets/Pictures/IMG_0170.jpeg",
+    name: "IMG_0170.jpeg",
+    size: 2659681,
+    isDefault: true,
+  },
+  {
+    id: "default-image-img-0169",
+    type: "image",
+    title: "Headshot",
+    caption: "A direct, casting-ready image for the portfolio gallery.",
+    createdAt: "2026-05-04T16:19:00.000Z",
+    published: true,
+    src: "assets/Pictures/IMG_0169.jpeg",
+    name: "IMG_0169.jpeg",
+    size: 2111015,
+    isDefault: true,
+  },
+];
+
 const cards = [...document.querySelectorAll(".portfolio-card")];
 const routeLinks = [...document.querySelectorAll("[data-route]")];
 const pageEyebrow = document.querySelector("#page-eyebrow");
@@ -122,6 +173,10 @@ const reelVideo = document.querySelector("#reel-video");
 const videoModal = document.querySelector("#video-modal");
 const videoClose = document.querySelector("#video-close");
 const videoClosers = [...document.querySelectorAll("[data-close-video]")];
+const photoModal = document.querySelector("#photo-modal");
+const photoModalImage = document.querySelector("#photo-modal-image");
+const photoClose = document.querySelector("#photo-close");
+const photoClosers = [...document.querySelectorAll("[data-close-photo]")];
 const revealSections = [...document.querySelectorAll("[data-reveal]")];
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -167,6 +222,7 @@ const state = {
 };
 
 let lastVideoTrigger = null;
+let lastPhotoTrigger = null;
 let scrollFrame = 0;
 
 function getRouteFromHash() {
@@ -229,7 +285,7 @@ function sortByNewest(left, right) {
 }
 
 function getPublishedImages() {
-  return state.media.images.filter((item) => item.published === true);
+  return [...DEFAULT_IMAGES, ...state.media.images.filter((item) => item.published === true)];
 }
 
 function getPublishedReels() {
@@ -425,6 +481,32 @@ function closeVideoModal() {
   }
 }
 
+function openPhotoModal(image, trigger) {
+  lastPhotoTrigger = trigger;
+  photoModalImage.src = image.src;
+  photoModalImage.alt = image.title ? `${image.title} picture` : "Chad Woods portfolio picture";
+  photoModal.hidden = false;
+  photoModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("is-photo-open");
+  photoClose.focus();
+}
+
+function closePhotoModal() {
+  if (photoModal.hidden) {
+    return;
+  }
+
+  photoModal.hidden = true;
+  photoModal.setAttribute("aria-hidden", "true");
+  photoModalImage.removeAttribute("src");
+  photoModalImage.alt = "";
+  document.body.classList.remove("is-photo-open");
+
+  if (lastPhotoTrigger) {
+    lastPhotoTrigger.focus();
+  }
+}
+
 function updateStoryScroll() {
   if (reducedMotionQuery.matches) {
     document.documentElement.style.setProperty("--story-scroll", "0");
@@ -501,6 +583,7 @@ function updateGalleryPreview() {
 
   galleryPreviewSlots.forEach((slot, index) => {
     const image = publishedImages[index];
+    slot.replaceChildren();
 
     if (!image) {
       slot.classList.remove("has-upload");
@@ -508,14 +591,51 @@ function updateGalleryPreview() {
       slot.style.removeProperty("background-size");
       slot.style.removeProperty("background-position");
       slot.style.removeProperty("background-repeat");
+      slot.removeAttribute("role");
+      slot.removeAttribute("tabindex");
+      slot.removeAttribute("aria-label");
       return;
     }
 
     slot.classList.add("has-upload");
+    slot.setAttribute("role", "button");
+    slot.setAttribute("tabindex", "0");
+    slot.setAttribute("aria-label", `Open ${image.title || image.name || "portfolio picture"}`);
     slot.style.backgroundImage = `linear-gradient(180deg, rgba(12, 24, 33, 0.1), rgba(12, 24, 33, 0.32)), url("${image.src}")`;
     slot.style.backgroundSize = "cover";
     slot.style.backgroundPosition = "center";
     slot.style.backgroundRepeat = "no-repeat";
+  });
+}
+
+function bindGalleryPreviewSlots() {
+  galleryPreviewSlots.forEach((slot, index) => {
+    slot.addEventListener("click", (event) => {
+      const image = getPublishedImages()[index];
+
+      if (!image) {
+        return;
+      }
+
+      event.stopPropagation();
+      openPhotoModal(image, slot);
+    });
+
+    slot.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+
+      const image = getPublishedImages()[index];
+
+      if (!image) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      openPhotoModal(image, slot);
+    });
   });
 }
 
@@ -551,10 +671,17 @@ function renderGalleryFeed() {
     const figure = document.createElement("figure");
     figure.className = "gallery-item";
 
+    const imageButton = document.createElement("button");
+    imageButton.className = "gallery-image-button";
+    imageButton.type = "button";
+    imageButton.setAttribute("aria-label", `Open ${image.title || image.name || "portfolio picture"}`);
+
     const img = document.createElement("img");
     img.src = image.src;
     img.alt = image.title ? `${image.title} picture` : "Chad Woods portfolio picture";
-    figure.append(img);
+    imageButton.append(img);
+    imageButton.addEventListener("click", () => openPhotoModal(image, imageButton));
+    figure.append(imageButton);
 
     const caption = document.createElement("figcaption");
     const title = document.createElement("h4");
@@ -1380,6 +1507,11 @@ videoClosers.forEach((closer) => {
 });
 
 videoClose.addEventListener("click", closeVideoModal);
+photoClosers.forEach((closer) => {
+  closer.addEventListener("click", closePhotoModal);
+});
+
+photoClose.addEventListener("click", closePhotoModal);
 adminTrigger.addEventListener("click", openAdminPanel);
 adminClosers.forEach((closer) => closer.addEventListener("click", closeAdminPanel));
 adminLock.addEventListener("click", lockAdminPanel);
@@ -1398,6 +1530,11 @@ window.addEventListener("keydown", (event) => {
     return;
   }
 
+  if (!photoModal.hidden) {
+    closePhotoModal();
+    return;
+  }
+
   closeVideoModal();
 });
 
@@ -1413,6 +1550,7 @@ if (typeof reducedMotionQuery.addEventListener === "function") {
 
 bindVideoTrigger(featuredReelModalTrigger);
 bindVideoTrigger(heroReelTrigger);
+bindGalleryPreviewSlots();
 renderPage(getRouteFromHash());
 setupRevealSections();
 updateStoryScroll();

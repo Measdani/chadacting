@@ -572,7 +572,8 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
   .reveal-item,
   .card-stage,
   .card-stage::before,
-  .video-modal-panel {
+  .video-modal-panel,
+  .photo-modal-panel {
     animation: none !important;
     transition-duration: 1ms !important;
   }
@@ -581,7 +582,8 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
   .reveal-item,
   .card-stage,
   .card-stage::before,
-  .video-modal-panel {
+  .video-modal-panel,
+  .photo-modal-panel {
     transform: none !important;
   }
 
@@ -767,7 +769,7 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
   position: absolute;
   inset: 18% 10% 19%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: clamp(0.45rem, 1.5vw, 0.9rem);
   transform: rotate(-2deg);
@@ -795,7 +797,6 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
 }
 
 .gallery-grid span:nth-child(4) {
-  grid-column: span 2;
   background:
     radial-gradient(circle at 30% 32%, #efbe9b 0 12%, transparent 13%),
     linear-gradient(120deg, #1e8b8a 0 54%, #f6c84e 55% 100%);
@@ -803,6 +804,12 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
 
 .gallery-grid span.has-upload {
   background-color: #dfe9e3;
+  cursor: zoom-in;
+}
+
+.gallery-grid span.has-upload:focus-visible {
+  outline: 0.18rem solid rgba(255, 248, 236, 0.95);
+  outline-offset: 0.18rem;
 }
 
 .casting-sheet {
@@ -1065,6 +1072,15 @@ body[data-page="personality"] .portfolio-card.stack-slot-3 {
   border: 1px solid rgba(23, 21, 19, 0.08);
   border-radius: 18px;
   box-shadow: 0 18px 44px rgba(23, 21, 19, 0.08);
+}
+
+.gallery-image-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: zoom-in;
 }
 
 .gallery-item img {
@@ -1512,11 +1528,13 @@ body[data-page="reel"] .ghost-button {
   background: rgba(255, 248, 236, 0.08);
 }
 
-body.is-video-open {
+body.is-video-open,
+body.is-photo-open {
   overflow: hidden;
 }
 
-.video-modal {
+.video-modal,
+.photo-modal {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -1525,17 +1543,23 @@ body.is-video-open {
   padding: clamp(1rem, 4vw, 3rem);
 }
 
-.video-modal[hidden] {
+.video-modal[hidden],
+.photo-modal[hidden] {
   display: none;
 }
 
-.video-modal-backdrop {
+.video-modal-backdrop,
+.photo-modal-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(17, 18, 20, 0.74);
   border: 0;
   backdrop-filter: blur(10px);
   cursor: pointer;
+}
+
+.photo-modal-backdrop {
+  backdrop-filter: blur(16px);
 }
 
 .video-modal-panel {
@@ -1552,6 +1576,15 @@ body.is-video-open {
   animation: video-pop 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.photo-modal-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  max-width: min(92vw, 54rem);
+  max-height: calc(100vh - 4rem);
+  animation: video-pop 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .video-modal video {
   display: block;
   width: 100%;
@@ -1561,7 +1594,23 @@ body.is-video-open {
   object-fit: contain;
 }
 
-.video-close {
+.photo-modal img {
+  display: block;
+  max-width: min(92vw, 54rem);
+  max-height: calc(100vh - 4rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #050505;
+  border: 1px solid rgba(255, 248, 236, 0.2);
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 1px rgba(255, 248, 236, 0.08),
+    0 38px 120px rgba(0, 0, 0, 0.56);
+}
+
+.video-close,
+.photo-close {
   position: absolute;
   z-index: 2;
   top: 0.75rem;
