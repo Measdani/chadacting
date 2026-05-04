@@ -94,6 +94,7 @@ const LOCAL_KEYS = {
 
 const MEDIA_DB_NAME = "cw-portfolio-media";
 const MEDIA_STORE_NAME = "media-items";
+const DEFAULT_REEL_THUMBNAIL = "assets/Pictures/IMG_0175.jpeg";
 const DEFAULT_REEL = {
   id: "default-reel",
   type: "reel",
@@ -103,6 +104,7 @@ const DEFAULT_REEL = {
   featured: true,
   isDefault: true,
   src: "assets/videos/April 26, 2026 (1).mp4",
+  thumbnail: DEFAULT_REEL_THUMBNAIL,
   name: "April 26, 2026 (1).mp4",
 };
 
@@ -706,6 +708,7 @@ function renderGalleryFeed() {
 
 function renderFeaturedReel() {
   const featured = state.media.featuredReel;
+  const thumbnail = featured.thumbnail || DEFAULT_REEL_THUMBNAIL;
 
   if (!featuredReelPlayer) {
     heroReelTrigger.dataset.videoSrc = featured.src;
@@ -718,6 +721,8 @@ function renderFeaturedReel() {
     featuredReelPlayer.setAttribute("src", featured.src);
     featuredReelPlayer.load();
   }
+
+  featuredReelPlayer.setAttribute("poster", thumbnail);
 
   if (featuredReelLabel) {
     featuredReelLabel.textContent = featured.isDefault ? "Default featured reel" : "Current featured reel";
