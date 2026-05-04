@@ -167,10 +167,6 @@ const pageSummary = document.querySelector("#page-summary");
 const pageCue = document.querySelector("#page-cue");
 const primaryAction = document.querySelector("#primary-action");
 const secondaryAction = document.querySelector("#secondary-action");
-const detailNumber = document.querySelector("#detail-number");
-const detailTitle = document.querySelector("#detail-title");
-const detailCopy = document.querySelector("#detail-copy");
-const detailList = document.querySelector("#detail-list");
 const reelVideo = document.querySelector("#reel-video");
 const videoModal = document.querySelector("#video-modal");
 const videoClose = document.querySelector("#video-close");
@@ -337,30 +333,6 @@ function getPageContent(pageName) {
   return page;
 }
 
-function updateDetailList(items) {
-  detailList.replaceChildren();
-
-  items.forEach((item) => {
-    const listItem = document.createElement("li");
-
-    if (typeof item === "string") {
-      listItem.textContent = item;
-    } else {
-      const heading = document.createElement("h3");
-      heading.textContent = item.heading;
-      listItem.append(heading);
-
-      item.lines.forEach((line) => {
-        const paragraph = document.createElement("p");
-        paragraph.textContent = line;
-        listItem.append(paragraph);
-      });
-    }
-
-    detailList.append(listItem);
-  });
-}
-
 function updateCardStack(activePage) {
   const activeIndex = pageOrder.indexOf(activePage);
   const stackedPages = pageOrder.slice(activeIndex + 1).concat(pageOrder.slice(0, activeIndex));
@@ -408,15 +380,11 @@ function renderPage(pageName) {
   primaryAction.href = page.primaryHref;
   secondaryAction.textContent = page.secondaryText;
   secondaryAction.href = page.secondaryHref;
-  detailNumber.textContent = page.number;
-  detailTitle.textContent = page.title;
-  detailCopy.textContent = page.copy;
 
   if (pageName !== "reel") {
     closeVideoModal();
   }
 
-  updateDetailList(page.details);
   updateCardStack(pageName);
   updateNavigation(pageName);
 }
